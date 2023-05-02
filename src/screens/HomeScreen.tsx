@@ -1,3 +1,4 @@
+import ScreenWrapper from 'components/ScreenWrapper';
 import TopBar from 'components/TopBar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { searchIcon } from 'images';
@@ -8,31 +9,40 @@ import {
   TextInput,
   View,
   Image,
+  Pressable,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 function BigButton({ imageURI, label }: { imageURI: string; label: string }) {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.BigButton}>
-      <ImageBackground
-        source={{ uri: imageURI }}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <LinearGradient
-          colors={['transparent', 'rgba(130, 150, 245, 0.9)']}
-          locations={[0, 0.9]}
-          style={{ height: '100%' }}
+    <Pressable
+      onPress={() => navigation.navigate('GamingZones' as never)}
+      style={{ width: '50%' }}
+    >
+      <View style={styles.BigButton}>
+        <ImageBackground
+          source={{ uri: imageURI }}
+          resizeMode="cover"
+          style={styles.image}
         >
-          <Text style={styles.label}>{label}</Text>
-        </LinearGradient>
-      </ImageBackground>
-    </View>
+          <LinearGradient
+            colors={['transparent', 'rgba(130, 150, 245, 0.9)']}
+            locations={[0, 0.9]}
+            style={{ height: '100%' }}
+          >
+            <Text style={styles.label}>{label}</Text>
+          </LinearGradient>
+        </ImageBackground>
+      </View>
+    </Pressable>
   );
 }
 
 function HomeScreen() {
   return (
-    <>
+    <ScreenWrapper>
       <TopBar />
 
       <View style={styles.screenWrapper}>
@@ -66,7 +76,7 @@ function HomeScreen() {
           />
         </View>
       </View>
-    </>
+    </ScreenWrapper>
   );
 }
 
@@ -116,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   BigButton: {
-    width: '50%',
+    // width: '50%',
     padding: 10,
     height: 160,
   },
