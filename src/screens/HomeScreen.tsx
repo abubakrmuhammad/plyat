@@ -1,17 +1,16 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import TopBar from 'components/TopBar';
+import LogoBar from 'components/LogoBar';
 import { LinearGradient } from 'expo-linear-gradient';
-import { searchIcon } from 'images';
 import {
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   View,
-  Image,
   Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import SearchBar from 'components/SearchBar';
+import { theme } from 'utils/theme';
 
 function BigButton({ imageURI, label }: { imageURI: string; label: string }) {
   const navigation = useNavigation();
@@ -43,20 +42,14 @@ function BigButton({ imageURI, label }: { imageURI: string; label: string }) {
 function HomeScreen() {
   return (
     <ScreenWrapper>
-      <TopBar />
+      <LogoBar />
 
       <View style={styles.screenWrapper}>
         <Text style={styles.subtitle}>Welcome, Rahim</Text>
         <Text style={styles.title}>Experience the {'\n'}Gaming World.</Text>
 
-        <View style={styles.searchInputWrapper}>
-          <Image source={searchIcon} style={styles.searchIcon} />
-          <TextInput
-            placeholder="Search Service"
-            style={styles.searchInput}
-            placeholderTextColor="#fff"
-          />
-        </View>
+        <SearchBar placeholder="Search Service" />
+
         <View style={styles.buttonsWrapper}>
           <BigButton
             imageURI="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
@@ -96,34 +89,15 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 24,
-    color: '#8296F5',
+    color: theme.colors.lightBlue,
     fontWeight: '500',
     marginBottom: 16,
   },
   title: {
     fontSize: 34,
     fontWeight: 'bold',
-    color: '#8296F5',
+    color: theme.colors.lightBlue,
     marginBottom: 32,
-  },
-  searchInputWrapper: {
-    position: 'relative',
-  },
-  searchIcon: {
-    position: 'absolute',
-    left: 14,
-    top: 4,
-    width: 24,
-    height: 24,
-  },
-  searchInput: {
-    borderRadius: 100,
-    height: 36,
-    backgroundColor: 'rgba(130, 150, 245, 0.5)',
-    paddingHorizontal: 24,
-    paddingLeft: 52,
-    marginBottom: 48,
-    color: '#fff',
   },
   BigButton: {
     // width: '50%',

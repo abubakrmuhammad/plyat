@@ -1,19 +1,7 @@
-import {
-  PlyatLogoLightBlue,
-  PlyatLogoWhite,
-  gearIcon,
-  hamburgerIcon,
-} from 'images';
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-} from 'react-native';
+import { PlyatLogoLightBlue, gearIcon, hamburgerIcon } from 'images';
+import { StyleSheet, View, Image } from 'react-native';
 
-function TopBar() {
+function LogoBar() {
   return (
     <View style={styles.barWrapper}>
       <Image
@@ -33,7 +21,7 @@ function TopBar() {
   );
 }
 
-export default TopBar;
+export default LogoBar;
 
 const styles = StyleSheet.create({
   barWrapper: {
