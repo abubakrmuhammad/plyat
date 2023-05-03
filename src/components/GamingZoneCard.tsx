@@ -1,4 +1,4 @@
-import { heartFilledIcon, heartIcon, sendIcon } from 'images';
+import { icons } from 'images';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
 
@@ -20,12 +20,12 @@ function GamingZoneCard({
 
           <View style={styles.controlsWrapper}>
             <Image
-              source={liked ? heartFilledIcon : heartIcon}
+              source={liked ? icons.heartFilled : icons.heart}
               style={[styles.likeButton, styles.controlButton]}
               resizeMode="cover"
             />
             <Image
-              source={sendIcon}
+              source={icons.send}
               style={[styles.shareButton, styles.controlButton]}
               resizeMode="cover"
             />

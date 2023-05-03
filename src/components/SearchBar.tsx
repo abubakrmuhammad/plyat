@@ -1,11 +1,11 @@
-import { searchIcon } from 'images';
+import { icons } from 'images';
 import { StyleSheet, TextInput, View, Image } from 'react-native';
 import { theme } from 'utils/theme';
 
 function SearchBar({ placeholder }: { placeholder: string }) {
   return (
     <View style={styles.searchInputWrapper}>
-      <Image source={searchIcon} style={styles.searchIcon} />
+      <Image source={icons.search} style={styles.searchIcon} />
       <TextInput
         placeholder={placeholder}
         style={styles.searchInput}

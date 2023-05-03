@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { arrowLeftCircleIcon, gearIcon } from 'images';
+import { icons } from 'images';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { theme } from 'utils/theme';
 
@@ -10,7 +10,7 @@ function TitleBar({ title = 'Screen Title' }: { title: string }) {
     <View style={styles.barWrapper}>
       <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
         <Image
-          source={arrowLeftCircleIcon}
+          source={icons.arrowLeftCircle}
           style={styles.backIcon}
           resizeMode="contain"
         />
@@ -18,7 +18,7 @@ function TitleBar({ title = 'Screen Title' }: { title: string }) {
 
       <Text style={styles.title}>{title}</Text>
 
-      <Image source={gearIcon} style={styles.gearIcon} resizeMode="contain" />
+      <Image source={icons.gear} style={styles.gearIcon} resizeMode="contain" />
     </View>
   );
 }

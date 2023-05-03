@@ -1,22 +1,22 @@
-import { PlyatLogoLightBlue, gearIcon, hamburgerIcon } from 'images';
+import { icons, logos } from 'images';
 import { StyleSheet, View, Image } from 'react-native';
 
 function LogoBar() {
   return (
     <View style={styles.barWrapper}>
       <Image
-        source={hamburgerIcon}
+        source={icons.hamburger}
         style={styles.hamburgerIcon}
         resizeMode="contain"
       />
 
       <Image
-        source={PlyatLogoLightBlue}
+        source={logos.plyatLightBlue}
         style={styles.logo}
         resizeMode="contain"
       />
 
-      <Image source={gearIcon} style={styles.gearIcon} resizeMode="contain" />
+      <Image source={icons.gear} style={styles.gearIcon} resizeMode="contain" />
     </View>
   );
 }
