@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import GamingZonesScreen from 'screens/GamingZonesScreen';
 import HomeScreen from 'screens/HomeScreen';
+import SettingsScreen from 'screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ export default function App() {
           <Stack.Screen
             name="GamingZones"
             component={GamingZonesScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -1,7 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import { icons, logos } from 'images';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Pressable } from 'react-native';
 
 function LogoBar() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.barWrapper}>
       <Image
@@ -16,7 +19,13 @@ function LogoBar() {
         resizeMode="contain"
       />
 
-      <Image source={icons.gear} style={styles.gearIcon} resizeMode="contain" />
+      <Pressable onPress={() => navigation.navigate('Settings' as never)}>
+        <Image
+          source={icons.gear}
+          style={styles.gearIcon}
+          resizeMode="contain"
+        />
+      </Pressable>
     </View>
   );
 }

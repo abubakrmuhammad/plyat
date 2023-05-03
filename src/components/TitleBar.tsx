@@ -3,7 +3,13 @@ import { icons } from 'images';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { theme } from 'utils/theme';
 
-function TitleBar({ title = 'Screen Title' }: { title: string }) {
+function TitleBar({
+  title = 'Screen Title',
+  hideGear = false,
+}: {
+  title: string;
+  hideGear?: boolean;
+}) {
   const navigation = useNavigation();
 
   return (
@@ -18,7 +24,17 @@ function TitleBar({ title = 'Screen Title' }: { title: string }) {
 
       <Text style={styles.title}>{title}</Text>
 
-      <Image source={icons.gear} style={styles.gearIcon} resizeMode="contain" />
+      {hideGear ? (
+        <View style={styles.placeholder} />
+      ) : (
+        <Pressable onPress={() => navigation.navigate('Settings' as never)}>
+          <Image
+            source={icons.gear}
+            style={styles.gearIcon}
+            resizeMode="contain"
+          />
+        </Pressable>
+      )}
     </View>
   );
 }
@@ -45,6 +61,10 @@ const styles = StyleSheet.create({
     height: 24,
   },
   gearIcon: {
+    width: 30,
+    height: 30,
+  },
+  placeholder: {
     width: 30,
     height: 30,
   },

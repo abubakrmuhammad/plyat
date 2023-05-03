@@ -2,7 +2,7 @@ export const logos = {
   plyatLightBlue: require('./PLYAT_logo_light-blue.png'),
   plyatBlue: require('./PLYAT_logo_blue.png'),
   plyatWhite: require('./PLYAT_logo_white.png'),
-};
+} as const;
 
 export const icons = {
   gear: require('./gear_icon.png'),
@@ -12,11 +12,19 @@ export const icons = {
   heart: require('./heart_icon.png'),
   heartFilled: require('./heart-filled_icon.png'),
   send: require('./send_icon.png'),
-};
+  socials: {
+    facebook: require('./fb_icon.png'),
+    instagram: require('./ig_icon.png'),
+    twitter: require('./tw_icon.png'),
+    github: require('./gh_icon.png'),
+  },
+  logout: require('./logout_icon.png'),
+  help: require('./help_icon.png'),
+} as const;
 
 export const gamingZoneBanners = {
   localhost: require('./gaming-zone_localhost.png'),
   endgame: require('./gaming-zone_endgame.png'),
   pixel: require('./gaming-zone_pixel.png'),
   revedge: require('./gaming-zone_revedge.png'),
-};
+} as const;
