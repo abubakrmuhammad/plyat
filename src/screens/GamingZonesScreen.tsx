@@ -1,9 +1,10 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import SearchBar from 'components/SearchBar';
 import TitleBar from 'components/TitleBar';
 import { gamingZoneBanners } from 'images';
 import GamingZoneCard from 'components/GamingZoneCard';
+import { useNavigation } from '@react-navigation/native';
 
 const gamingZones = [
   { title: 'Localhost Johar Town', image: gamingZoneBanners.localhost },
@@ -13,6 +14,8 @@ const gamingZones = [
 ];
 
 function GamingZonesScreen() {
+  const navigation = useNavigation();
+
   return (
     <ScreenWrapper>
       <TitleBar title="Gaming Zones" />
@@ -22,12 +25,16 @@ function GamingZonesScreen() {
 
         <ScrollView style={styles.cardsWrapper}>
           {[...gamingZones, ...gamingZones].map((gamingZone, index) => (
-            <GamingZoneCard
+            <Pressable
               key={index}
-              title={gamingZone.title}
-              image={gamingZone.image}
-              liked={gamingZone.liked}
-            />
+              onPress={() => navigation.navigate('GamingZoneDetail' as never)}
+            >
+              <GamingZoneCard
+                title={gamingZone.title}
+                image={gamingZone.image}
+                liked={gamingZone.liked}
+              />
+            </Pressable>
           ))}
 
           <View style={{ height: 32 }} />

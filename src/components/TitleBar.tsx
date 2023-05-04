@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { icons } from 'images';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { theme } from 'utils/theme';
+import BackButton from './BackButton';
 
 function TitleBar({
   title = 'Screen Title',
@@ -14,13 +15,7 @@ function TitleBar({
 
   return (
     <View style={styles.barWrapper}>
-      <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Image
-          source={icons.arrowLeftCircle}
-          style={styles.backIcon}
-          resizeMode="contain"
-        />
-      </Pressable>
+      <BackButton size={24} />
 
       <Text style={styles.title}>{title}</Text>
 

@@ -20,6 +20,11 @@ export const icons = {
   },
   logout: require('./logout_icon.png'),
   help: require('./help_icon.png'),
+  phone: require('./phone_icon.png'),
+  clockSquare: require('./clock-square_icon.png'),
+  dollarCircle: require('./dollar-circle_icon.png'),
+  locationPin: require('./location-pin_icon.png'),
+  desktopPC: require('./desktop-pc_icon.png'),
 } as const;
 
 export const gamingZoneBanners = {
@@ -27,4 +32,5 @@ export const gamingZoneBanners = {
   endgame: require('./gaming-zone_endgame.png'),
   pixel: require('./gaming-zone_pixel.png'),
   revedge: require('./gaming-zone_revedge.png'),
+  gamingZoneIcon: require('./gaming-zone_icon.png'),
 } as const;
