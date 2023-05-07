@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "plyat",
+    "name": "Plyat",
     "slug": "plyat",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,10 +19,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0B102C"
-      }
+      },
+      "package": "com.bakr_jr.plyat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bc6fb139-122f-4b45-a25c-576e1243bcc8"
+      }
+    },
+    "owner": "bakr_jr"
   }
 }
+
