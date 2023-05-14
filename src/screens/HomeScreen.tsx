@@ -12,12 +12,20 @@ import { useNavigation } from '@react-navigation/native';
 import SearchBar from 'components/SearchBar';
 import { theme } from 'utils/theme';
 
-function BigButton({ imageURI, label }: { imageURI: string; label: string }) {
+function BigButton({
+  imageURI,
+  label,
+  screenName,
+}: {
+  imageURI: string;
+  label: string;
+  screenName: string;
+}) {
   const navigation = useNavigation();
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('GamingZones' as never)}
+      onPress={() => navigation.navigate(screenName as never)}
       style={{ width: '50%' }}
     >
       <View style={styles.BigButton}>
@@ -54,18 +62,22 @@ function HomeScreen() {
           <BigButton
             imageURI="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
             label="Gaming Zones"
+            screenName="GamingZones"
           />
           <BigButton
             imageURI="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80"
             label="Show Map"
+            screenName="Map"
           />
           <BigButton
             imageURI="https://images.unsplash.com/photo-1563191911-e65f8655ebf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             label="Explore"
+            screenName="Blogs"
           />
           <BigButton
             imageURI="https://images.unsplash.com/photo-1587095951604-b9d924a3fda0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
             label="eSports"
+            screenName="eSports"
           />
         </View>
       </View>
@@ -121,3 +133,4 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 });
+

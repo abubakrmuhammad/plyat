@@ -7,7 +7,7 @@ import {
   Image,
   StatusBar,
   Text,
-  Pressable,
+  Platform,
 } from 'react-native';
 import { theme } from 'utils/theme';
 
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   backButtonWrapper: {
     position: 'absolute',
-    top: StatusBar.currentHeight! + 24,
+    top: Platform.OS === 'ios' ? 64 : StatusBar.currentHeight! + 24,
     left: 28,
     zIndex: 1,
   },
@@ -209,3 +209,4 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
 });
+
