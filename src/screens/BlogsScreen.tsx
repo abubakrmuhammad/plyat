@@ -43,7 +43,7 @@ function BlogsScreen() {
 
   return (
     <ScreenWrapper>
-      <TopSearchBar />
+      <TopSearchBar placeholder="Search News" />
 
       <View style={styles.screenWrapper}>
         <ScrollView

@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import BackButton from './BackButton';
 import SearchBar from './SearchBar';
 
-function TopSearchBar() {
+function TopSearchBar({ placeholder }: { placeholder: string }) {
   return (
     <View style={styles.barWrapper}>
       <View style={styles.backButtonWrapper}>
@@ -10,7 +10,7 @@ function TopSearchBar() {
       </View>
 
       <View style={styles.searchBarWrapper}>
-        <SearchBar placeholder="Search News" />
+        <SearchBar placeholder={placeholder} />
       </View>
     </View>
   );

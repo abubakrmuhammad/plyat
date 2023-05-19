@@ -77,7 +77,7 @@ function HomeScreen() {
           <BigButton
             imageURI="https://images.unsplash.com/photo-1587095951604-b9d924a3fda0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
             label="eSports"
-            screenName="eSports"
+            screenName="Tournaments"
           />
         </View>
       </View>

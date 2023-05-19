@@ -1,5 +1,5 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import SearchBar from 'components/SearchBar';
 import TitleBar from 'components/TitleBar';
 import { gamingZoneBanners } from 'images';
@@ -59,3 +59,4 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 });
+
