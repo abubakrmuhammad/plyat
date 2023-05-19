@@ -76,7 +76,7 @@ function BlogsScreen() {
           {[...blogs, ...blogs].map((blog, index) => (
             <Pressable
               key={index}
-              onPress={() => navigation.navigate('GamingZoneDetail' as never)}
+              onPress={() => navigation.navigate('BlogDetail' as never)}
             >
               <BLogCard
                 title={blog.title}

@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import BlogDetailScreen from 'screens/BlogDetailScreen';
 import BlogsScreen from 'screens/BlogsScreen';
 import GamingZoneDetailScreen from 'screens/GamingZoneDetailScreen';
 import GamingZonesScreen from 'screens/GamingZonesScreen';
@@ -31,6 +32,11 @@ export default function App() {
           <Stack.Screen
             name="GamingZoneDetail"
             component={GamingZoneDetailScreen}
+            options={{ animation: 'fade_from_bottom' }}
+          />
+          <Stack.Screen
+            name="BlogDetail"
+            component={BlogDetailScreen}
             options={{ animation: 'fade_from_bottom' }}
           />
           <Stack.Screen

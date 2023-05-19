@@ -34,3 +34,7 @@ export const gamingZoneBanners = {
   revedge: require('./gaming-zone_revedge.png'),
   gamingZoneIcon: require('./gaming-zone_icon.png'),
 } as const;
+
+export const blogBanners = {
+  placeholder: require('./blog_thumb.png'),
+} as const;
