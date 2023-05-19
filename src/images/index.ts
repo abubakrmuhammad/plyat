@@ -25,6 +25,8 @@ export const icons = {
   dollarCircle: require('./dollar-circle_icon.png'),
   locationPin: require('./location-pin_icon.png'),
   desktopPC: require('./desktop-pc_icon.png'),
+  calendar: require('./calendar_icon.png'),
+  message: require('./message_icon.png'),
 } as const;
 
 export const gamingZoneBanners = {
@@ -38,3 +40,4 @@ export const gamingZoneBanners = {
 export const blogBanners = {
   placeholder: require('./blog_thumb.png'),
 } as const;
+

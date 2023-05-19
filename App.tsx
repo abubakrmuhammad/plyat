@@ -7,6 +7,7 @@ import GamingZoneDetailScreen from 'screens/GamingZoneDetailScreen';
 import GamingZonesScreen from 'screens/GamingZonesScreen';
 import HomeScreen from 'screens/HomeScreen';
 import SettingsScreen from 'screens/SettingsScreen';
+import TournamentDetailScreen from 'screens/TournamentDetailScreen';
 import TournamentsScreen from 'screens/TournamentsScreen';
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,11 @@ export default function App() {
           <Stack.Screen
             name="BlogDetail"
             component={BlogDetailScreen}
+            options={{ animation: 'fade_from_bottom' }}
+          />
+          <Stack.Screen
+            name="TournamentDetail"
+            component={TournamentDetailScreen}
             options={{ animation: 'fade_from_bottom' }}
           />
           <Stack.Screen

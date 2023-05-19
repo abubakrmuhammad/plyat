@@ -115,7 +115,7 @@ function TournamentsScreen() {
           {[...tournaments, ...tournaments].map((gamingZone, index) => (
             <Pressable
               key={index}
-              onPress={() => navigation.navigate('GamingZoneDetail' as never)}
+              onPress={() => navigation.navigate('TournamentDetail' as never)}
             >
               <TournamentCard
                 title={gamingZone.title}
