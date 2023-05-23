@@ -11,6 +11,9 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from 'components/SearchBar';
 import { theme } from 'utils/theme';
+import { useEffect } from 'react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from 'firebase/firebase';
 
 function BigButton({
   imageURI,
@@ -48,6 +51,17 @@ function BigButton({
 }
 
 function HomeScreen() {
+  useEffect(() => {
+    (async () => {
+      const q = query(collection(db, 'test'), where('test', '==', 'test'));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(doc => {
+        console.log(doc.id, ' => ', doc.data());
+      });
+    })();
+  });
+
   return (
     <ScreenWrapper>
       <LogoBar />
