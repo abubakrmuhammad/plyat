@@ -7,11 +7,13 @@ function LogoBar() {
 
   return (
     <View style={styles.barWrapper}>
-      <Image
-        source={icons.hamburger}
-        style={styles.hamburgerIcon}
-        resizeMode="contain"
-      />
+      <Pressable onPress={() => navigation.navigate('Drawer' as never)}>
+        <Image
+          source={icons.hamburger}
+          style={styles.hamburgerIcon}
+          resizeMode="contain"
+        />
+      </Pressable>
 
       <Image
         source={logos.plyatLightBlue}
@@ -19,13 +21,15 @@ function LogoBar() {
         resizeMode="contain"
       />
 
-      <Pressable onPress={() => navigation.navigate('Settings' as never)}>
+      {/* <Pressable onPress={() => navigation.navigate('Settings' as never)}>
         <Image
           source={icons.gear}
           style={styles.gearIcon}
           resizeMode="contain"
         />
-      </Pressable>
+      </Pressable> */}
+
+      <View style={styles.gearIcon} />
     </View>
   );
 }

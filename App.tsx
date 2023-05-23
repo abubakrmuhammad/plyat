@@ -6,7 +6,7 @@ import BlogsScreen from 'screens/BlogsScreen';
 import GamingZoneDetailScreen from 'screens/GamingZoneDetailScreen';
 import GamingZonesScreen from 'screens/GamingZonesScreen';
 import HomeScreen from 'screens/HomeScreen';
-import SettingsScreen from 'screens/SettingsScreen';
+import DrawerScreen from 'screens/DrawerScreen';
 import TournamentDetailScreen from 'screens/TournamentDetailScreen';
 import TournamentsScreen from 'screens/TournamentsScreen';
 
@@ -52,9 +52,9 @@ export default function App() {
             options={{ animation: 'fade_from_bottom' }}
           />
           <Stack.Screen
-            name="Settings"
-            component={SettingsScreen}
-            options={{ animation: 'slide_from_right' }}
+            name="Drawer"
+            component={DrawerScreen}
+            options={{ animation: 'slide_from_left' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

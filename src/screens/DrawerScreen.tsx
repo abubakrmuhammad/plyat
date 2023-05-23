@@ -14,7 +14,7 @@ const items = [
   { title: 'Logout', icon: icons.logout },
 ];
 
-function SettingItem({ title, icon }: { title: string; icon: any }) {
+function DrawerItem({ title, icon }: { title: string; icon: any }) {
   return (
     <View style={styles.settingsItem}>
       <View style={styles.settingsItemIcon}>
@@ -26,7 +26,7 @@ function SettingItem({ title, icon }: { title: string; icon: any }) {
   );
 }
 
-function SettingsScreen() {
+function DrawerScreen() {
   return (
     <ScreenWrapper>
       <TitleBar title="Settings" hideGear />
@@ -36,7 +36,7 @@ function SettingsScreen() {
 
         <ScrollView style={styles.cardsWrapper}>
           {items.map((item, index) => (
-            <SettingItem key={index} title={item.title} icon={item.icon} />
+            <DrawerItem key={index} title={item.title} icon={item.icon} />
           ))}
 
           <View style={{ height: 32 }} />
@@ -46,7 +46,7 @@ function SettingsScreen() {
   );
 }
 
-export default SettingsScreen;
+export default DrawerScreen;
 
 const styles = StyleSheet.create({
   screenWrapper: {
@@ -77,3 +77,4 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
   },
 });
+
