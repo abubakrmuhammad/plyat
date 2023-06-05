@@ -1,20 +1,44 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import SearchBar from 'components/SearchBar';
 import TitleBar from 'components/TitleBar';
-import { gamingZoneBanners } from 'images';
 import GamingZoneCard from 'components/GamingZoneCard';
 import { useNavigation } from '@react-navigation/native';
-
-const gamingZones = [
-  { title: 'Localhost Johar Town', image: gamingZoneBanners.localhost },
-  { title: 'Endgame.io', image: gamingZoneBanners.endgame, liked: true },
-  { title: 'Pixel Gaming Lounge', image: gamingZoneBanners.pixel },
-  { title: 'Revedge Gaming', image: gamingZoneBanners.revedge },
-];
+import { useEffect, useState } from 'react';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from 'firebase/firebase';
+import { GamingZone } from 'utils/types';
+import useLoading from 'utils/hooks';
+import { theme } from 'utils/theme';
 
 function GamingZonesScreen() {
   const navigation = useNavigation();
+  const [gamingZones, setGamingZones] = useState<GamingZone[]>([]);
+  const [loading, loadingActions] = useLoading(false);
+
+  useEffect(() => {
+    (async () => {
+      loadingActions.start();
+
+      const q = query(collection(db, 'gamingZones'));
+
+      const querySnapshot = await getDocs(q);
+
+      const mappedData = querySnapshot.docs.map(
+        doc => ({ id: doc.id, ...doc.data() } as GamingZone)
+      );
+
+      setGamingZones(mappedData);
+
+      loadingActions.stop();
+    })();
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -23,22 +47,29 @@ function GamingZonesScreen() {
       <View style={styles.screenWrapper}>
         <SearchBar placeholder="Search Gaming Zones" />
 
-        <ScrollView style={styles.cardsWrapper}>
-          {[...gamingZones, ...gamingZones].map((gamingZone, index) => (
-            <Pressable
-              key={index}
-              onPress={() => navigation.navigate('GamingZoneDetail' as never)}
-            >
-              <GamingZoneCard
-                title={gamingZone.title}
-                image={gamingZone.image}
-                liked={gamingZone.liked}
-              />
-            </Pressable>
-          ))}
+        {loading ? (
+          <ActivityIndicator size="large" color={theme.colors.lightBlue} />
+        ) : (
+          <ScrollView style={styles.cardsWrapper}>
+            {gamingZones.map((gamingZone, index) => (
+              <Pressable
+                key={index}
+                onPress={() =>
+                  navigation.navigate(
+                    'GamingZoneDetail' as never,
+                    {
+                      id: gamingZone.id,
+                    } as never
+                  )
+                }
+              >
+                <GamingZoneCard gamingZone={gamingZone} />
+              </Pressable>
+            ))}
 
-          <View style={{ height: 32 }} />
-        </ScrollView>
+            <View style={{ height: 32 }} />
+          </ScrollView>
+        )}
       </View>
     </ScreenWrapper>
   );

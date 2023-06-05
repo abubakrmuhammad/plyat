@@ -51,17 +51,6 @@ function BigButton({
 }
 
 function HomeScreen() {
-  useEffect(() => {
-    (async () => {
-      const q = query(collection(db, 'test'), where('test', '==', 'test'));
-      const querySnapshot = await getDocs(q);
-
-      querySnapshot.forEach(doc => {
-        console.log(doc.id, ' => ', doc.data());
-      });
-    })();
-  });
-
   return (
     <ScreenWrapper>
       <LogoBar />

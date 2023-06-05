@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import BlogDetailScreen from 'screens/BlogDetailScreen';
@@ -9,8 +9,9 @@ import HomeScreen from 'screens/HomeScreen';
 import DrawerScreen from 'screens/DrawerScreen';
 import TournamentDetailScreen from 'screens/TournamentDetailScreen';
 import TournamentsScreen from 'screens/TournamentsScreen';
+import { RootNavStackParamList } from 'utils/types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootNavStackParamList>();
 
 export default function App() {
   return (

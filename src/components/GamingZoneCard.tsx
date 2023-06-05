@@ -1,26 +1,25 @@
 import { icons } from 'images';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
+import { GamingZone } from 'utils/types';
 
-function GamingZoneCard({
-  title,
-  image,
-  liked,
-}: {
-  title: string;
-  image: any;
-  liked?: boolean;
-}) {
+function GamingZoneCard({ gamingZone }: { gamingZone: GamingZone }) {
+  const { imageURL, name, isLiked } = gamingZone;
+
   return (
     <View style={styles.shadowWrapper}>
       <View style={styles.cardWrapper}>
-        <Image source={image} style={styles.image} resizeMode="cover" />
+        <Image
+          source={{ uri: imageURL }}
+          style={styles.image}
+          resizeMode="cover"
+        />
         <View style={styles.bottomBar}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{name}</Text>
 
           <View style={styles.controlsWrapper}>
             <Image
-              source={liked ? icons.heartFilled : icons.heart}
+              source={isLiked ? icons.heartFilled : icons.heart}
               style={[styles.likeButton, styles.controlButton]}
               resizeMode="cover"
             />
@@ -85,3 +84,4 @@ const styles = StyleSheet.create({
   },
   shareButton: {},
 });
+

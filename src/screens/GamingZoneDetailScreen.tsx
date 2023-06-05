@@ -1,5 +1,9 @@
+import { RouteProp } from '@react-navigation/native';
 import BackButton from 'components/BackButton';
+import { db } from 'firebase/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { gamingZoneBanners, icons } from 'images';
+import { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,19 +14,7 @@ import {
   Platform,
 } from 'react-native';
 import { theme } from 'utils/theme';
-
-const detailItems = [
-  { icon: icons.dollarCircle, label: 'PKR 150 per hour' },
-  { icon: icons.clockSquare, label: 'Open 24/7' },
-  {
-    icon: icons.locationPin,
-    label: 'Floor 2, Civic Center Barkat Market, New، Garden Town, Lahore',
-  },
-  {
-    icon: icons.desktopPC,
-    label: 'i5 8700k / 1060 6gb / 144hz',
-  },
-];
+import { GamingZone, RootNavStackParamList } from 'utils/types';
 
 function DetailItem({
   icon,
@@ -56,22 +48,62 @@ function DetailItem({
   );
 }
 
-function GamingZoneDetailScreen() {
+type GamingZoneRouteProp = RouteProp<RootNavStackParamList, 'GamingZoneDetail'>;
+
+type GamingZoneScreenProps = {
+  route: GamingZoneRouteProp;
+};
+
+function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
+  const [gamingZone, setGamingZone] = useState<GamingZone>();
+
+  const { id } = route.params;
+
+  useEffect(() => {
+    (async () => {
+      const docRef = doc(db, 'gamingZones', id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setGamingZone(docSnap.data() as GamingZone);
+      }
+    })();
+  }, []);
+
+  const {
+    imageURL,
+    iconURL,
+    name,
+    description,
+    address,
+    phone,
+    rate,
+    timing,
+    specs,
+  } = gamingZone || {};
+
+  const detailItems = [
+    { icon: icons.dollarCircle, label: `PKR ${rate} per hour` },
+    { icon: icons.clockSquare, label: timing },
+    {
+      icon: icons.locationPin,
+      label: address,
+    },
+    {
+      icon: icons.desktopPC,
+      label: specs,
+    },
+  ];
+
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
+    <View style={{ flex: 1 }}>
       <ScrollView style={styles.screenWrapper}>
         <View style={styles.backButtonWrapper}>
           <BackButton size={28} />
         </View>
 
         <Image
-          source={{
-            uri: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-          }}
+          source={{ uri: imageURL }}
           resizeMode="cover"
           style={styles.thumbnail}
         />
@@ -79,12 +111,12 @@ function GamingZoneDetailScreen() {
         <View style={styles.metaWrapper}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
-              source={gamingZoneBanners.gamingZoneIcon}
+              source={{ uri: iconURL }}
               resizeMode="cover"
               style={styles.icon}
             />
 
-            <Text style={styles.title}>The Localhost Gaming</Text>
+            <Text style={styles.title}>{name}</Text>
 
             <View
               style={{
@@ -103,17 +135,13 @@ function GamingZoneDetailScreen() {
             </View>
           </View>
 
-          <Text style={styles.description}>
-            One of the best Pakistan's eSports Lounge, spreading on 1600 sqft of
-            the area which is packed with Food Court, Play Station 4, Xbox 360s
-            and Premium Gaming
-          </Text>
+          <Text style={styles.description}>{description}</Text>
 
           {detailItems.map((item, index) => (
             <DetailItem
               key={index}
               icon={item.icon}
-              label={item.label}
+              label={item.label!}
               disableBottomBorder={index === detailItems.length - 1}
             />
           ))}
