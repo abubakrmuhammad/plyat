@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 import { GamingZone } from 'utils/types';
-import useLoading from 'utils/hooks';
+import { useLoading } from 'utils/hooks';
 import { theme } from 'utils/theme';
 
 function GamingZonesScreen() {
@@ -90,4 +90,3 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 });
-

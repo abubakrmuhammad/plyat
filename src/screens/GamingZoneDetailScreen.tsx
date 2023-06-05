@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import BackButton from 'components/BackButton';
 import { db } from 'firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { gamingZoneBanners, icons } from 'images';
+import { icons } from 'images';
 import { useEffect, useState } from 'react';
 import {
   View,
@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import { theme } from 'utils/theme';
 import { GamingZone, RootNavStackParamList } from 'utils/types';
+import { Image as ExpoImage } from 'expo-image';
+import { useDownloadURL } from 'utils/hooks';
 
 function DetailItem({
   icon,
@@ -56,6 +58,8 @@ type GamingZoneScreenProps = {
 
 function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
   const [gamingZone, setGamingZone] = useState<GamingZone>();
+  const [imageURL, getImageURL] = useDownloadURL();
+  const [iconURL, getIconURL] = useDownloadURL();
 
   const { id } = route.params;
 
@@ -65,22 +69,17 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setGamingZone(docSnap.data() as GamingZone);
+        const data = docSnap.data() as GamingZone;
+
+        getImageURL(data.bannerName);
+        getIconURL(data.iconName);
+        setGamingZone(data);
       }
     })();
   }, []);
 
-  const {
-    imageURL,
-    iconURL,
-    name,
-    description,
-    address,
-    phone,
-    rate,
-    timing,
-    specs,
-  } = gamingZone || {};
+  const { name, description, address, phone, rate, timing, specs } =
+    gamingZone || {};
 
   const detailItems = [
     { icon: icons.dollarCircle, label: `PKR ${rate} per hour` },
@@ -102,18 +101,20 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
           <BackButton size={28} />
         </View>
 
-        <Image
-          source={{ uri: imageURL }}
-          resizeMode="cover"
+        <ExpoImage
           style={styles.thumbnail}
+          source={imageURL}
+          contentFit="cover"
+          transition={240}
         />
 
         <View style={styles.metaWrapper}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image
-              source={{ uri: iconURL }}
-              resizeMode="cover"
+            <ExpoImage
               style={styles.icon}
+              source={iconURL}
+              contentFit="cover"
+              transition={240}
             />
 
             <Text style={styles.title}>{name}</Text>
@@ -237,4 +238,3 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
 });
-

@@ -2,18 +2,28 @@ import { icons } from 'images';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
 import { GamingZone } from 'utils/types';
+import { Image as ExpoImage } from 'expo-image';
+import { useDownloadURL } from 'utils/hooks';
+import { useEffect } from 'react';
 
 function GamingZoneCard({ gamingZone }: { gamingZone: GamingZone }) {
-  const { imageURL, name, isLiked } = gamingZone;
+  const { bannerName, name, isLiked } = gamingZone;
+  const [imageURL, getImageURL] = useDownloadURL();
+
+  useEffect(() => {
+    getImageURL(bannerName);
+  }, []);
 
   return (
     <View style={styles.shadowWrapper}>
       <View style={styles.cardWrapper}>
-        <Image
-          source={{ uri: imageURL }}
+        <ExpoImage
           style={styles.image}
-          resizeMode="cover"
+          source={imageURL}
+          contentFit="cover"
+          transition={240}
         />
+
         <View style={styles.bottomBar}>
           <Text style={styles.title}>{name}</Text>
 
@@ -84,4 +94,3 @@ const styles = StyleSheet.create({
   },
   shareButton: {},
 });
-

@@ -13,8 +13,8 @@ export interface GamingZone {
   id: string;
   name: string;
   description: string;
-  imageURL: string;
-  iconURL: string;
+  bannerName: string;
+  iconName: string;
   isLiked: boolean;
   rate: number;
   timing: string;
@@ -22,4 +22,3 @@ export interface GamingZone {
   address: string;
   phone: string;
 }
-
