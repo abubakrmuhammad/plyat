@@ -11,9 +11,6 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from 'components/SearchBar';
 import { theme } from 'utils/theme';
-import { useEffect } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from 'firebase/firebase';
 
 function BigButton({
   imageURI,

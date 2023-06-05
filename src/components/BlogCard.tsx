@@ -1,5 +1,6 @@
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
+import { Image as ExpoImage } from 'expo-image';
 
 function BLogCard({
   title,
@@ -12,7 +13,12 @@ function BLogCard({
 }) {
   return (
     <View style={styles.cardWrapper}>
-      <Image source={image} style={styles.image} resizeMode="cover" />
+      <ExpoImage
+        source={image}
+        style={styles.image}
+        contentFit="cover"
+        transition={240}
+      />
 
       <View style={styles.textWrapper}>
         <Text style={styles.title}>{title}</Text>

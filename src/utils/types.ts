@@ -22,3 +22,18 @@ export interface GamingZone {
   address: string;
   phone: string;
 }
+
+export interface Blog {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  mdName: string;
+  bannerName: string;
+  readMoreLink: string;
+}
+
+export interface BlogWithImageURL extends Exclude<Blog, 'bannerName'> {
+  imageURL: string;
+}
+

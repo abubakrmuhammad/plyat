@@ -18,14 +18,19 @@ export function useLoading(defaultValue: boolean = false) {
   return [loading, loadingActions] as const;
 }
 
-export function useDownloadURL() {
+export function useDownloadURL(defaultDir = '') {
   const [downloadURL, setDownloadURL] = useState<string | null>(null);
 
   const getURL = async (storageURL: string) => {
-    const url = await getDownloadURL(ref(storage, storageURL));
+    const url = await getDownloadURL(
+      ref(storage, `${defaultDir}/${storageURL}`)
+    );
 
     setDownloadURL(url);
+
+    return url;
   };
 
   return [downloadURL, getURL] as const;
 }
+

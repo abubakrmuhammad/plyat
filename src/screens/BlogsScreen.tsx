@@ -1,13 +1,26 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import { gamingZoneBanners } from 'images';
 import { useNavigation } from '@react-navigation/native';
 import TopSearchBar from 'components/TopSearchBar';
 import BLogCard from 'components/BlogCard';
 import { theme } from 'utils/theme';
 import Pill from 'components/Pill';
+import { BlogWithImageURL } from 'utils/types';
+import { useEffect, useState } from 'react';
+import { useDownloadURL, useLoading } from 'utils/hooks';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from 'firebase/firebase';
 
-const blogs = [
+import { Image as ExpoImage } from 'expo-image';
+const placeholderBlogs = [
   {
     title: 'Rumor: Nivera will join Team Liquid',
     image: gamingZoneBanners.localhost,
@@ -40,55 +53,105 @@ const blogs = [
 
 function BlogsScreen() {
   const navigation = useNavigation();
+  const [blogs, setBlogs] = useState<BlogWithImageURL[]>([]);
+  const [loading, loadingActions] = useLoading(false);
+  const [imageURL, getImageURL] = useDownloadURL('news');
+
+  useEffect(() => {
+    (async () => {
+      loadingActions.start();
+
+      const q = query(collection(db, 'news'));
+
+      const querySnapshot = await getDocs(q);
+
+      const mappedData = await Promise.all(
+        querySnapshot.docs.map(async doc => {
+          const imageURL = await getImageURL(doc.data().bannerName);
+          return {
+            id: doc.id,
+            ...doc.data(),
+            imageURL,
+          } as BlogWithImageURL;
+        })
+      );
+
+      setBlogs(mappedData);
+
+      loadingActions.stop();
+    })();
+  }, []);
 
   return (
     <ScreenWrapper>
       <TopSearchBar placeholder="Search News" />
 
-      <View style={styles.screenWrapper}>
-        <ScrollView
-          horizontal
-          style={{
-            flexDirection: 'row',
-            marginBottom: 18,
-          }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <Pill title="Games" color="#0084F4" />
-          <Pill title="Competitive" color="#6979F8" />
-          <Pill title="New Releases" color="#FF647C" />
-          <Pill title="Pro Teams" color="#FFA500" />
-          <Pill title="Results" color="#00C48C" />
-        </ScrollView>
+      {loading ? (
+        <ActivityIndicator size="large" color={theme.colors.lightBlue} />
+      ) : (
+        <View style={styles.screenWrapper}>
+          <ScrollView
+            horizontal
+            style={{
+              flexDirection: 'row',
+              marginBottom: 18,
+            }}
+            showsHorizontalScrollIndicator={false}
+          >
+            <Pill title="Games" color="#0084F4" />
+            <Pill title="Competitive" color="#6979F8" />
+            <Pill title="New Releases" color="#FF647C" />
+            <Pill title="Pro Teams" color="#FFA500" />
+            <Pill title="Results" color="#00C48C" />
+          </ScrollView>
 
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: theme.colors.lightBlue,
-            marginBottom: 18,
-          }}
-        >
-          Latest News
-        </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: theme.colors.lightBlue,
+              marginBottom: 18,
+            }}
+          >
+            Latest News
+          </Text>
 
-        <ScrollView style={styles.cardsWrapper}>
-          {[...blogs, ...blogs].map((blog, index) => (
-            <Pressable
-              key={index}
-              onPress={() => navigation.navigate('BlogDetail' as never)}
-            >
-              <BLogCard
-                title={blog.title}
-                image={blog.image}
-                description={blog.description}
-              />
-            </Pressable>
-          ))}
+          <ScrollView style={styles.cardsWrapper}>
+            {blogs.map((blog, index) => (
+              <Pressable
+                key={index}
+                onPress={() =>
+                  navigation.navigate(
+                    'BlogDetail' as never,
+                    { id: blog.id } as never
+                  )
+                }
+              >
+                <BLogCard
+                  title={blog.title}
+                  image={blog.imageURL}
+                  description={blog.description}
+                />
+              </Pressable>
+            ))}
 
-          <View style={{ height: 32 }} />
-        </ScrollView>
-      </View>
+            {[...placeholderBlogs].map((blog, index) => (
+              <Pressable
+                key={index}
+                onPress={() => navigation.navigate('BlogDetail' as never)}
+              >
+                <BLogCard
+                  title={blog.title}
+                  image={blog.image}
+                  description={blog.description}
+                />
+              </Pressable>
+            ))}
+
+            <View style={{ height: 32 }} />
+          </ScrollView>
+        </View>
+      )}
     </ScreenWrapper>
   );
 }
