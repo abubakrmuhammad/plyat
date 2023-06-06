@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
 import { Image as ExpoImage } from 'expo-image';
 import { formatDate } from 'utils/helpers';

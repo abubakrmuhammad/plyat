@@ -1,5 +1,5 @@
 import BackButton from 'components/BackButton';
-import { gamingZoneBanners, icons } from 'images';
+import { icons } from 'images';
 import {
   View,
   StyleSheet,

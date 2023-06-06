@@ -19,38 +19,6 @@ import { useDownloadURL, useLoading } from 'utils/hooks';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 
-import { Image as ExpoImage } from 'expo-image';
-const placeholderBlogs = [
-  {
-    title: 'Rumor: Nivera will join Team Liquid',
-    image: gamingZoneBanners.localhost,
-    description:
-      'The 20-year-old Belgian player is reported to be replacing Kryptix.',
-  },
-  {
-    title:
-      'Gambit Esports became the champion of VCT 2021: Stage 3 Masters Berlin',
-    image: gamingZoneBanners.endgame,
-    description:
-      'In the grand final of the championship, the Russian team beat Team Envy with a score of 3: 0, thus earning $ 225,000.',
-  },
-  {
-    title: 'Team oNe eSports are the champions of the Six August 2021 Major!',
-    image: gamingZoneBanners.pixel,
-    description: 'In the final, the Brazilians beat Team Empire.',
-  },
-  {
-    title: 'HITMAN 3 will receive new DLCs next year',
-    image: gamingZoneBanners.revedge,
-    description: 'IO Interactive talked about it.',
-  },
-  {
-    title: 'PUBG World Championship 2021 will be held in a "hybrid" format',
-    image: gamingZoneBanners.revedge,
-    description: 'This was told by KRAFTON.',
-  },
-];
-
 const tags = [
   { label: 'Games', color: '#0084F4', id: 'games' },
   { label: 'Competitive', color: '#6979F8', id: 'competitive' },

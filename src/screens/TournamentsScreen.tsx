@@ -20,20 +20,6 @@ import { db } from 'firebase/firebase';
 import { TournamentCategoryId, TournamentWithImageURL } from 'utils/types';
 import { tournamentCategories } from 'utils/helpers';
 
-const tournaments = [
-  {
-    title: 'CSGO Campus Redbull Tournament',
-    image: gamingZoneBanners.localhost,
-  },
-  {
-    title: "Galaxy Racer-Pakistan's biggest eSports... ",
-    image: gamingZoneBanners.endgame,
-    liked: true,
-  },
-  { title: 'COD 4 Summer Sizzlers', image: gamingZoneBanners.pixel },
-  { title: 'Tekken 7 Localhost Weekly', image: gamingZoneBanners.revedge },
-];
-
 function TournamentsScreen() {
   const navigation = useNavigation();
   const [tournaments, setTournaments] = useState<TournamentWithImageURL[]>([]);

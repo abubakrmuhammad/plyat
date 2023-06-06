@@ -1,21 +1,14 @@
-import ScreenWrapper from 'components/ScreenWrapper';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Image,
-  Pressable,
   Platform,
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-import { blogBanners, gamingZoneBanners } from 'images';
-import { RouteProp, useNavigation } from '@react-navigation/native';
-import TopSearchBar from 'components/TopSearchBar';
-import BLogCard from 'components/BlogCard';
+import { RouteProp } from '@react-navigation/native';
 import { theme } from 'utils/theme';
-import Pill from 'components/Pill';
 import BackButton from 'components/BackButton';
 import { Blog, RootNavStackParamList } from 'utils/types';
 import { useEffect, useState } from 'react';
