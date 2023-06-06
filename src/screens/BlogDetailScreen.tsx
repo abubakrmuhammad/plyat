@@ -25,6 +25,7 @@ import { db } from 'firebase/firebase';
 import { Image as ExpoImage } from 'expo-image';
 
 import Markdown from 'react-native-simple-markdown';
+import { formatDate } from 'utils/helpers';
 
 type BlogRouteProp = RouteProp<RootNavStackParamList, 'BlogDetail'>;
 
@@ -84,7 +85,7 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
     })();
   }, []);
 
-  const { title, readMoreLink } = blog || {};
+  const { title, readMoreLink, publishedDate } = blog || {};
 
   return (
     <View
@@ -111,8 +112,6 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
             paddingHorizontal: 32,
           }}
         >
-          <Text style={styles.title}>{title}</Text>
-
           {loading ? (
             <ActivityIndicator
               size="large"
@@ -121,6 +120,11 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
             />
           ) : (
             <>
+              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.date}>
+                {formatDate(publishedDate?.toDate()!)}
+              </Text>
+
               <Markdown styles={markdownStyles}>{md}</Markdown>
 
               <View style={{ paddingHorizontal: 32 }}></View>
@@ -159,6 +163,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: theme.colors.white,
     fontWeight: 'bold',
+  },
+  date: {
+    color: theme.colors.white,
+    fontSize: 14,
+    fontWeight: '400',
+    marginBottom: -12,
+    marginTop: 6,
+    opacity: 0.7,
   },
   para: {
     fontSize: 13,

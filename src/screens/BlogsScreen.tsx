@@ -148,6 +148,38 @@ function BlogsScreen() {
           <ActivityIndicator size="large" color={theme.colors.lightBlue} />
         ) : (
           <ScrollView style={styles.cardsWrapper}>
+            {blogs.length === 0 && (
+              <View
+                style={{
+                  marginTop: 36,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 42,
+                    fontWeight: 'bold',
+                    color: theme.colors.lightBlue,
+                    textAlign: 'center',
+                    marginTop: 18,
+                  }}
+                >
+                  :/
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    color: theme.colors.lightBlue,
+                    marginBottom: 18,
+                    textAlign: 'center',
+                    marginTop: 14,
+                  }}
+                >
+                  No Blogs Found
+                </Text>
+              </View>
+            )}
+
             {blogs.map((blog, index) => (
               <Pressable
                 key={index}
@@ -162,19 +194,7 @@ function BlogsScreen() {
                   title={blog.title}
                   image={blog.imageURL}
                   description={blog.description}
-                />
-              </Pressable>
-            ))}
-
-            {[...placeholderBlogs].map((blog, index) => (
-              <Pressable
-                key={index}
-                onPress={() => navigation.navigate('BlogDetail' as never)}
-              >
-                <BLogCard
-                  title={blog.title}
-                  image={blog.image}
-                  description={blog.description}
+                  date={blog.publishedDate.toDate()}
                 />
               </Pressable>
             ))}

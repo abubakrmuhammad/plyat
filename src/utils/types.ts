@@ -1,3 +1,6 @@
+import { FirebaseApp } from 'firebase/app';
+import { Timestamp } from 'firebase/firestore';
+
 export type RootNavStackParamList = {
   Home: undefined;
   GamingZones: undefined;
@@ -30,6 +33,7 @@ export interface Blog {
   tags: string[];
   mdName: string;
   bannerName: string;
+  publishedDate: Timestamp;
   readMoreLink: string;
 }
 
