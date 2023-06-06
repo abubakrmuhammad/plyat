@@ -58,7 +58,7 @@ function HomeScreen() {
         <Text style={styles.subtitle}>Welcome, Comrade</Text>
         <Text style={styles.title}>Experience the {'\n'}Gaming World.</Text>
 
-        <SearchBar placeholder="Search Service" />
+        {/* <SearchBar placeholder="Search Service" /> */}
 
         <View style={styles.buttonsWrapper}>
           <BigButton

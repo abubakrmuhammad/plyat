@@ -10,7 +10,7 @@ function TopSearchBar({ placeholder }: { placeholder: string }) {
       </View>
 
       <View style={styles.searchBarWrapper}>
-        <SearchBar placeholder={placeholder} />
+        {/* <SearchBar placeholder={placeholder} /> */}
       </View>
     </View>
   );

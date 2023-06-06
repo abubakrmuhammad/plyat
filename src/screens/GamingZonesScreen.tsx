@@ -45,7 +45,7 @@ function GamingZonesScreen() {
       <TitleBar title="Gaming Zones" />
 
       <View style={styles.screenWrapper}>
-        <SearchBar placeholder="Search Gaming Zones" />
+        {/* <SearchBar placeholder="Search Gaming Zones" /> */}
 
         {loading ? (
           <ActivityIndicator size="large" color={theme.colors.lightBlue} />
@@ -90,3 +90,4 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 });
+

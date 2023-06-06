@@ -32,7 +32,7 @@ function DrawerScreen() {
       <TitleBar title="Settings" hideGear />
 
       <View style={styles.screenWrapper}>
-        <SearchBar placeholder="Search Settings" />
+        {/* <SearchBar placeholder="Search Settings" /> */}
 
         <ScrollView style={styles.cardsWrapper}>
           {items.map((item, index) => (
