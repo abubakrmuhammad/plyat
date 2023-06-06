@@ -42,7 +42,7 @@ function GamingZonesScreen() {
 
   return (
     <ScreenWrapper>
-      <TitleBar title="Gaming Zones" />
+      <TitleBar title="Gaming Zones" hideGear />
 
       <View style={styles.screenWrapper}>
         {/* <SearchBar placeholder="Search Gaming Zones" /> */}

@@ -131,7 +131,7 @@ function TournamentsScreen() {
             <ActivityIndicator size="large" color={theme.colors.lightBlue} />
           ) : (
             <>
-              {[...tournaments, ...tournaments].map((tournament, index) => (
+              {[...tournaments].map((tournament, index) => (
                 <Pressable
                   key={index}
                   onPress={() =>
