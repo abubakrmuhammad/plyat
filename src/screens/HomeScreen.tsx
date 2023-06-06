@@ -16,17 +16,19 @@ function BigButton({
   imageURI,
   label,
   screenName,
+  width = '50%',
 }: {
   imageURI: string;
   label: string;
   screenName: string;
+  width?: string;
 }) {
   const navigation = useNavigation();
 
   return (
     <Pressable
       onPress={() => navigation.navigate(screenName as never)}
-      style={{ width: '50%' }}
+      style={{ width }}
     >
       <View style={styles.BigButton}>
         <ImageBackground
@@ -53,7 +55,7 @@ function HomeScreen() {
       <LogoBar />
 
       <View style={styles.screenWrapper}>
-        <Text style={styles.subtitle}>Welcome, Rahim</Text>
+        <Text style={styles.subtitle}>Welcome, Comrade</Text>
         <Text style={styles.title}>Experience the {'\n'}Gaming World.</Text>
 
         <SearchBar placeholder="Search Service" />
@@ -63,12 +65,13 @@ function HomeScreen() {
             imageURI="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
             label="Gaming Zones"
             screenName="GamingZones"
+            width="100%"
           />
-          <BigButton
+          {/* <BigButton
             imageURI="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80"
             label="Show Map"
             screenName="Map"
-          />
+          /> */}
           <BigButton
             imageURI="https://images.unsplash.com/photo-1563191911-e65f8655ebf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
             label="Explore"

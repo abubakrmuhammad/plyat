@@ -8,6 +8,7 @@ import {
   StatusBar,
   Text,
   Platform,
+  Pressable,
 } from 'react-native';
 import { theme } from 'utils/theme';
 import { Image as ExpoImage } from 'expo-image';
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 import { formatCurrency, formatDate } from 'utils/helpers';
+import * as Linking from 'expo-linking';
 
 function DetailItem({
   icon,
@@ -140,9 +142,16 @@ function TournamentDetailScreen({ route }: TournamentScreenProps) {
           ))}
         </View>
 
-        <View style={styles.cta}>
-          <Text style={styles.ctaText}>Register</Text>
-        </View>
+        <Pressable
+          onPress={async () => {
+            await Linking.openURL(registrationLink!);
+          }}
+          disabled={!registrationLink}
+        >
+          <View style={[styles.cta, !registrationLink && styles.disabledCTA]}>
+            <Text style={styles.ctaText}>Register</Text>
+          </View>
+        </Pressable>
 
         <View style={{ height: 100 }} />
       </ScrollView>
@@ -223,6 +232,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 14,
+  },
+  disabledCTA: {
+    opacity: 0.5,
   },
 });
 

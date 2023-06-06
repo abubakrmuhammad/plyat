@@ -6,6 +6,7 @@ import {
   Platform,
   StatusBar,
   ActivityIndicator,
+  Pressable,
 } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { theme } from 'utils/theme';
@@ -17,6 +18,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 import { Image as ExpoImage } from 'expo-image';
 
+import * as Linking from 'expo-linking';
 import Markdown from 'react-native-simple-markdown';
 import { formatDate } from 'utils/helpers';
 
@@ -122,9 +124,16 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
 
               <View style={{ paddingHorizontal: 32 }}></View>
 
-              <View style={styles.cta}>
-                <Text style={styles.ctaText}>Read More</Text>
-              </View>
+              <Pressable
+                onPress={async () => {
+                  await Linking.openURL(readMoreLink!);
+                }}
+                disabled={!readMoreLink}
+              >
+                <View style={[styles.cta, !readMoreLink && styles.disabledCTA]}>
+                  <Text style={styles.ctaText}>Read More</Text>
+                </View>
+              </Pressable>
             </>
           )}
         </View>
@@ -187,6 +196,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 14,
+  },
+  disabledCTA: {
+    opacity: 0.5,
   },
 });
 
