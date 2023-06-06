@@ -12,11 +12,13 @@ import {
   StatusBar,
   Text,
   Platform,
+  Pressable,
 } from 'react-native';
 import { theme } from 'utils/theme';
 import { GamingZone, RootNavStackParamList } from 'utils/types';
 import { Image as ExpoImage } from 'expo-image';
 import { useDownloadURL } from 'utils/hooks';
+import * as Linking from 'expo-linking';
 
 function DetailItem({
   icon,
@@ -119,21 +121,28 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
 
             <Text style={styles.title}>{name}</Text>
 
-            <View
+            <Pressable
+              onPress={async () => await Linking.openURL(`tel:${phone}`)}
               style={{
                 marginLeft: 'auto',
-                borderWidth: 1,
-                borderColor: theme.colors.lightBlue,
-                borderRadius: 50,
-                padding: 12,
               }}
             >
-              <Image
-                source={icons.phone}
-                resizeMode="contain"
-                style={styles.callIcon}
-              />
-            </View>
+              <View
+                style={{
+                  marginLeft: 'auto',
+                  borderWidth: 1,
+                  borderColor: theme.colors.lightBlue,
+                  borderRadius: 50,
+                  padding: 12,
+                }}
+              >
+                <Image
+                  source={icons.phone}
+                  resizeMode="contain"
+                  style={styles.callIcon}
+                />
+              </View>
+            </Pressable>
           </View>
 
           <Text style={styles.description}>{description}</Text>
@@ -238,3 +247,4 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
 });
+
