@@ -7,6 +7,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Pressable,
+  Image,
 } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { theme } from 'utils/theme';
@@ -21,6 +22,7 @@ import { Image as ExpoImage } from 'expo-image';
 import * as Linking from 'expo-linking';
 import Markdown from 'react-native-simple-markdown';
 import { formatDate } from 'utils/helpers';
+import { icons } from 'images';
 
 type BlogRouteProp = RouteProp<RootNavStackParamList, 'BlogDetail'>;
 
@@ -132,6 +134,14 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
               >
                 <View style={[styles.cta, !readMoreLink && styles.disabledCTA]}>
                   <Text style={styles.ctaText}>Read More</Text>
+
+                  <Image
+                    source={icons.externalLinkBlue}
+                    style={{
+                      height: 16,
+                      width: 16,
+                    }}
+                  />
                 </View>
               </Pressable>
             </>
@@ -185,10 +195,14 @@ const styles = StyleSheet.create({
     width: 300,
     alignSelf: 'center',
     borderRadius: 300,
-    // position: 'absolute',
-    // bottom: 48,
     marginTop: 24,
     marginBottom: 48,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 4,
   },
   ctaText: {
     color: theme.colors.blue,

@@ -27,6 +27,7 @@ export const icons = {
   desktopPC: require('./desktop-pc_icon.png'),
   calendar: require('./calendar_icon.png'),
   message: require('./message_icon.png'),
+  externalLinkBlue: require('./external_icon.png'),
 } as const;
 
 export const gamingZoneBanners = {

@@ -96,6 +96,8 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
     },
   ];
 
+  const locationLink = 'https://maps.app.goo.gl';
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.screenWrapper}>
@@ -160,11 +162,24 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
         <View style={{ height: 32 }} />
       </ScrollView>
 
-      {/* <Pressable> */}
-      <View style={styles.cta}>
-        <Text style={styles.ctaText}>See Location</Text>
-      </View>
-      {/* </Pressable> */}
+      <Pressable
+        onPress={async () => {
+          await Linking.openURL(locationLink!);
+        }}
+        disabled={!locationLink}
+      >
+        <View style={[styles.cta, !locationLink && styles.disabledCTA]}>
+          <Text style={styles.ctaText}>See Location</Text>
+
+          <Image
+            source={icons.externalLinkBlue}
+            style={{
+              height: 16,
+              width: 16,
+            }}
+          />
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -238,6 +253,12 @@ const styles = StyleSheet.create({
     borderRadius: 300,
     position: 'absolute',
     bottom: 48,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 4,
   },
   ctaText: {
     color: theme.colors.blue,
@@ -245,6 +266,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     paddingVertical: 14,
+  },
+  disabledCTA: {
+    opacity: 0.5,
   },
 });
 
