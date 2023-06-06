@@ -1,6 +1,7 @@
 import { icons } from 'images';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { theme } from 'utils/theme';
+import { Image as ExpoImage } from 'expo-image';
 
 function TournamentCard({
   title,
@@ -14,7 +15,13 @@ function TournamentCard({
   return (
     <View style={styles.shadowWrapper}>
       <View style={styles.cardWrapper}>
-        <Image source={image} style={styles.image} resizeMode="cover" />
+        <ExpoImage
+          source={image}
+          style={styles.image}
+          contentFit="cover"
+          transition={240}
+        />
+
         <View style={styles.bottomBar}>
           <Text style={styles.title}>{title}</Text>
 

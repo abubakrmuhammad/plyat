@@ -10,19 +10,14 @@ import {
   Platform,
 } from 'react-native';
 import { theme } from 'utils/theme';
-
-const detailItems = [
-  { icon: icons.dollarCircle, label: 'PKR 4,000,000' },
-  { icon: icons.calendar, label: 'July 8-9, 2023' },
-  {
-    icon: icons.message,
-    label: 'June 18, 2023',
-  },
-  {
-    icon: icons.locationPin,
-    label: 'Pak-China Friendship Center, Islamabad',
-  },
-];
+import { Image as ExpoImage } from 'expo-image';
+import { useDownloadURL } from 'utils/hooks';
+import { RouteProp } from '@react-navigation/native';
+import { RootNavStackParamList, Tournament } from 'utils/types';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from 'firebase/firebase';
+import { formatCurrency, formatDate } from 'utils/helpers';
 
 function DetailItem({
   icon,
@@ -30,7 +25,7 @@ function DetailItem({
   disableBottomBorder = false,
 }: {
   icon: any;
-  label: string;
+  label?: string;
   disableBottomBorder?: boolean;
 }) {
   return (
@@ -56,7 +51,57 @@ function DetailItem({
   );
 }
 
-function TournamentDetailScreen() {
+type TournamentRouteProp = RouteProp<RootNavStackParamList, 'TournamentDetail'>;
+
+type TournamentScreenProps = {
+  route: TournamentRouteProp;
+};
+
+function TournamentDetailScreen({ route }: TournamentScreenProps) {
+  const [tournament, setTournament] = useState<Tournament>();
+  const [imageURL, getImageURL] = useDownloadURL('tournaments');
+  const [iconURL, getIconURL] = useDownloadURL('tournaments');
+
+  const { id } = route.params;
+
+  useEffect(() => {
+    (async () => {
+      const docRef = doc(db, 'tournaments', id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data() as Tournament;
+
+        getImageURL(data.bannerName);
+        getIconURL(data.iconName);
+        setTournament(data);
+      }
+    })();
+  }, []);
+
+  const {
+    title,
+    description,
+    prize,
+    eventDate,
+    registrationEndDate,
+    location,
+    registrationLink,
+  } = tournament || {};
+
+  const detailItems = [
+    { icon: icons.dollarCircle, label: `PKR ${formatCurrency(prize)}` },
+    { icon: icons.calendar, label: formatDate(eventDate?.toDate()!) },
+    {
+      icon: icons.message,
+      label: formatDate(registrationEndDate?.toDate()!),
+    },
+    {
+      icon: icons.locationPin,
+      label: location,
+    },
+  ];
+
   return (
     <View style={{ flex: 1, height: '100%' }}>
       <ScrollView style={styles.screenWrapper}>
@@ -64,35 +109,26 @@ function TournamentDetailScreen() {
           <BackButton size={28} />
         </View>
 
-        <Image
-          source={gamingZoneBanners.endgame}
-          resizeMode="cover"
+        <ExpoImage
+          source={imageURL}
+          contentFit="cover"
           style={styles.thumbnail}
+          transition={240}
         />
 
         <View style={styles.metaWrapper}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image
-              source={gamingZoneBanners.gamingZoneIcon}
-              resizeMode="cover"
+            <ExpoImage
+              source={iconURL}
+              contentFit="cover"
               style={styles.icon}
+              transition={240}
             />
 
-            <Text style={styles.title}>
-              Gamers Galaxy - Get ready for the biggest event in Pakistan
-            </Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
 
-          <Text style={styles.description}>
-            Gamers Galaxy, the flagship event for Galaxy Racer Pakistan, is an
-            all-inclusive esports festival with four esports tournaments with a
-            huge prize pool of 20,000,000 PKR, grand musical acts, influencer
-            meet and greets, panel discussions, and community turn up and play
-            areas. Her Galaxy will also be featured at the festival and will be
-            the countries first ever female dedicated esports tournament. Gamers
-            Galaxy will also be the first esports event to ever be televised in
-            partnership with Ten Sports.
-          </Text>
+          <Text style={styles.description}>{description}</Text>
 
           {detailItems.map((item, index) => (
             <DetailItem

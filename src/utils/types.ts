@@ -1,5 +1,6 @@
 import { FirebaseApp } from 'firebase/app';
 import { Timestamp } from 'firebase/firestore';
+import { tournamentCategories } from './helpers';
 
 export type RootNavStackParamList = {
   Home: undefined;
@@ -40,4 +41,26 @@ export interface Blog {
 export interface BlogWithImageURL extends Exclude<Blog, 'bannerName'> {
   imageURL: string;
 }
+
+export interface Tournament {
+  id: string;
+  title: string;
+  description: string;
+  categories: TournamentCategoryId[];
+  bannerName: string;
+  iconName: string;
+  eventDate: Timestamp;
+  registrationEndDate: Timestamp;
+  isLiked: boolean;
+  prize: number;
+  location: string;
+  registrationLink: string;
+}
+
+export interface TournamentWithImageURL
+  extends Exclude<Tournament, 'bannerName'> {
+  imageURL: string;
+}
+
+export type TournamentCategoryId = (typeof tournamentCategories)[number]['id'];
 
