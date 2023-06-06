@@ -8,7 +8,6 @@ import {
   Pressable,
   ActivityIndicator,
 } from 'react-native';
-import { gamingZoneBanners } from 'images';
 import { useNavigation } from '@react-navigation/native';
 import TopSearchBar from 'components/TopSearchBar';
 import TournamentCard from 'components/TournamentCard';
@@ -35,8 +34,8 @@ function TournamentsScreen() {
       loadingActions.start();
 
       const q = query(
-        collection(db, 'tournaments')
-        // where('categories', 'array-contains-any', activeCategories)
+        collection(db, 'tournaments'),
+        where('categories', 'array-contains-any', activeCategories)
       );
 
       const querySnapshot = await getDocs(q);
@@ -74,10 +73,27 @@ function TournamentsScreen() {
               }}
             >
               {tournamentCategories.map((category, index) => (
-                <Pressable key={index} onPress={() => null}>
+                <Pressable
+                  key={index}
+                  onPress={() => {
+                    if (activeCategories.includes(category.id)) {
+                      setActiveCategories(prev =>
+                        prev.filter(t => t !== category.id)
+                      );
+                    } else {
+                      setActiveCategories(prev => [...prev, category.id]);
+                    }
+                  }}
+                >
                   <View>
                     <Image
-                      source={{ uri: category.imageUri }}
+                      source={
+                        category.images[
+                          activeCategories.includes(category.id)
+                            ? 'active'
+                            : 'inactive'
+                        ]
+                      }
                       style={{
                         width: 80,
                         height: 80,
@@ -94,6 +110,9 @@ function TournamentsScreen() {
                         marginTop: 6,
                         textAlign: 'center',
                         width: 80,
+                        opacity: activeCategories.includes(category.id)
+                          ? 1
+                          : 0.5,
                       }}
                     >
                       {category.title}

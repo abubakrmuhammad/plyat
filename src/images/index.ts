@@ -38,6 +38,33 @@ export const gamingZoneBanners = {
   gamingZoneIcon: require('./gaming-zone_icon.png'),
 } as const;
 
+export const tournamentCategoriesImages = {
+  valorant: {
+    active: require('./cat-valorant.png'),
+    inactive: require('./cat-valorant-bw.png'),
+  },
+  csgo: {
+    active: require('./cat-csgo.jpeg'),
+    inactive: require('./cat-csgo-bw.png'),
+  },
+  dota2: {
+    active: require('./cat-dota.jpeg'),
+    inactive: require('./cat-dota-bw.png'),
+  },
+  pubg: {
+    active: require('./cat-pubg.jpeg'),
+    inactive: require('./cat-pubg-bw.png'),
+  },
+  fortnite: {
+    active: require('./cat-fortnite.jpeg'),
+    inactive: require('./cat-fortnite-bw.png'),
+  },
+  lol: {
+    active: require('./cat-lol.jpeg'),
+    inactive: require('./cat-lol-bw.png'),
+  },
+} as const;
+
 export const blogBanners = {
   placeholder: require('./blog_thumb.png'),
 } as const;
