@@ -25,6 +25,7 @@ export interface GamingZone {
   specs: string;
   address: string;
   phone: string;
+  mapLink: string;
 }
 
 export interface Blog {

@@ -80,7 +80,7 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
     })();
   }, []);
 
-  const { name, description, address, phone, rate, timing, specs } =
+  const { name, description, address, phone, rate, timing, specs, mapLink } =
     gamingZone || {};
 
   const detailItems = [
@@ -95,8 +95,6 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
       label: specs,
     },
   ];
-
-  const locationLink = 'https://maps.app.goo.gl';
 
   return (
     <View style={{ flex: 1 }}>
@@ -164,11 +162,11 @@ function GamingZoneDetailScreen({ route }: GamingZoneScreenProps) {
 
       <Pressable
         onPress={async () => {
-          await Linking.openURL(locationLink!);
+          await Linking.openURL(mapLink!);
         }}
-        disabled={!locationLink}
+        disabled={!mapLink}
       >
-        <View style={[styles.cta, !locationLink && styles.disabledCTA]}>
+        <View style={[styles.cta, !mapLink && styles.disabledCTA]}>
           <Text style={styles.ctaText}>See Location</Text>
 
           <Image

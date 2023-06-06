@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontSize: 14,
     fontWeight: '400',
-    marginBottom: -12,
+    marginBottom: 8,
     marginTop: 6,
     opacity: 0.7,
   },
