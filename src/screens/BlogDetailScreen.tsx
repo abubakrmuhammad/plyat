@@ -8,6 +8,7 @@ import {
   Pressable,
   Platform,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import { blogBanners, gamingZoneBanners } from 'images';
 import { RouteProp, useNavigation } from '@react-navigation/native';
@@ -18,7 +19,7 @@ import Pill from 'components/Pill';
 import BackButton from 'components/BackButton';
 import { Blog, RootNavStackParamList } from 'utils/types';
 import { useEffect, useState } from 'react';
-import { useDownloadURL } from 'utils/hooks';
+import { useDownloadURL, useLoading } from 'utils/hooks';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 import { Image as ExpoImage } from 'expo-image';
@@ -47,24 +48,26 @@ const markdownStyles = {
 };
 
 function BlogDetailScreen({ route }: BlogScreenProps) {
-  const navigation = useNavigation();
-
   const [blog, setBlog] = useState<Blog>();
   const [imageURL, getImageURL] = useDownloadURL('news');
   const [mdURL, getMdURL] = useDownloadURL('news');
   const [md, setMd] = useState<string>();
 
+  const [loading, loadingActions] = useLoading(false);
+
   const { id } = route.params;
 
   useEffect(() => {
     (async () => {
+      loadingActions.start();
+
       const docRef = doc(db, 'news', id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const data = docSnap.data() as Blog;
 
-        await Promise.all([
+        const [, mdURL] = await Promise.all([
           getImageURL(data.bannerName),
           getMdURL(data.mdName),
         ]);
@@ -75,11 +78,11 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
             .then(data => setMd(data));
 
         setBlog(data);
+
+        loadingActions.stop();
       }
     })();
   }, []);
-
-  console.log(md);
 
   const { title, readMoreLink } = blog || {};
 
@@ -110,16 +113,24 @@ function BlogDetailScreen({ route }: BlogScreenProps) {
         >
           <Text style={styles.title}>{title}</Text>
 
-          <Markdown styles={markdownStyles}>{md}</Markdown>
+          {loading ? (
+            <ActivityIndicator
+              size="large"
+              color={theme.colors.lightBlue}
+              style={{ marginTop: 32 }}
+            />
+          ) : (
+            <>
+              <Markdown styles={markdownStyles}>{md}</Markdown>
 
-          <View style={{ paddingHorizontal: 32 }}></View>
-        </View>
+              <View style={{ paddingHorizontal: 32 }}></View>
 
-        {/* <Pressable> */}
-        <View style={styles.cta}>
-          <Text style={styles.ctaText}>Read More</Text>
+              <View style={styles.cta}>
+                <Text style={styles.ctaText}>Read More</Text>
+              </View>
+            </>
+          )}
         </View>
-        {/* </Pressable> */}
       </ScrollView>
     </View>
   );

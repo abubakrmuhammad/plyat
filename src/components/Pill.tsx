@@ -1,21 +1,38 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { theme } from 'utils/theme';
 
 function Pill({
   title,
   color = theme.colors.lightBlue,
+  onPress,
+  inactive = false,
 }: {
   title: string;
   color?: string;
+  onPress: PressableProps['onPress'];
+  inactive?: boolean;
 }) {
   return (
-    <View style={{ ...styles.wrapper, backgroundColor: color }}>
-      <Text
-        style={{ color: theme.colors.white, fontSize: 12, fontWeight: '400' }}
+    <Pressable onPress={onPress}>
+      <View
+        style={{
+          ...styles.wrapper,
+          backgroundColor: inactive ? '#95a5a6' : color,
+        }}
       >
-        {title}
-      </Text>
-    </View>
+        <Text
+          style={{ color: theme.colors.white, fontSize: 12, fontWeight: '400' }}
+        >
+          {title}
+        </Text>
+      </View>
+    </Pressable>
   );
 }
 

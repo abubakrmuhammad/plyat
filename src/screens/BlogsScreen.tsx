@@ -16,7 +16,7 @@ import Pill from 'components/Pill';
 import { BlogWithImageURL } from 'utils/types';
 import { useEffect, useState } from 'react';
 import { useDownloadURL, useLoading } from 'utils/hooks';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from 'firebase/firebase';
 
 import { Image as ExpoImage } from 'expo-image';
@@ -51,17 +51,36 @@ const placeholderBlogs = [
   },
 ];
 
+const tags = [
+  { label: 'Games', color: '#0084F4', id: 'games' },
+  { label: 'Competitive', color: '#6979F8', id: 'competitive' },
+  { label: 'New Releases', color: '#FF647C', id: 'new-releases' },
+  { label: 'Pro Teams', color: '#FFB800', id: 'pro-teams' },
+  { label: 'Results', color: '#00C48C', id: 'results' },
+];
+
 function BlogsScreen() {
   const navigation = useNavigation();
   const [blogs, setBlogs] = useState<BlogWithImageURL[]>([]);
   const [loading, loadingActions] = useLoading(false);
-  const [imageURL, getImageURL] = useDownloadURL('news');
+  const [, getImageURL] = useDownloadURL('news');
+
+  const [activeTags, setActiveTags] = useState<string[]>([
+    'games',
+    'competitive',
+    'new-releases',
+    'pro-teams',
+    'results',
+  ]);
 
   useEffect(() => {
     (async () => {
       loadingActions.start();
 
-      const q = query(collection(db, 'news'));
+      const q = query(
+        collection(db, 'news'),
+        where('tags', 'array-contains-any', activeTags)
+      );
 
       const querySnapshot = await getDocs(q);
 
@@ -80,42 +99,54 @@ function BlogsScreen() {
 
       loadingActions.stop();
     })();
-  }, []);
+  }, [activeTags]);
 
   return (
     <ScreenWrapper>
       <TopSearchBar placeholder="Search News" />
 
-      {loading ? (
-        <ActivityIndicator size="large" color={theme.colors.lightBlue} />
-      ) : (
-        <View style={styles.screenWrapper}>
+      <View style={styles.screenWrapper}>
+        <View>
           <ScrollView
             horizontal
             style={{
-              flexDirection: 'row',
+              // flexDirection: 'row',
               marginBottom: 18,
             }}
             showsHorizontalScrollIndicator={false}
           >
-            <Pill title="Games" color="#0084F4" />
-            <Pill title="Competitive" color="#6979F8" />
-            <Pill title="New Releases" color="#FF647C" />
-            <Pill title="Pro Teams" color="#FFA500" />
-            <Pill title="Results" color="#00C48C" />
+            {tags.map((tag, index) => (
+              <Pill
+                key={index}
+                title={tag.label}
+                color={tag.color}
+                onPress={() => {
+                  if (activeTags.includes(tag.id)) {
+                    setActiveTags(prev => prev.filter(t => t !== tag.id));
+                  } else {
+                    setActiveTags(prev => [...prev, tag.id]);
+                  }
+                }}
+                inactive={!activeTags.includes(tag.id)}
+              />
+            ))}
           </ScrollView>
+        </View>
 
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: theme.colors.lightBlue,
-              marginBottom: 18,
-            }}
-          >
-            Latest News
-          </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: theme.colors.lightBlue,
+            marginBottom: 18,
+          }}
+        >
+          Latest News
+        </Text>
 
+        {loading ? (
+          <ActivityIndicator size="large" color={theme.colors.lightBlue} />
+        ) : (
           <ScrollView style={styles.cardsWrapper}>
             {blogs.map((blog, index) => (
               <Pressable
@@ -150,8 +181,8 @@ function BlogsScreen() {
 
             <View style={{ height: 32 }} />
           </ScrollView>
-        </View>
-      )}
+        )}
+      </View>
     </ScreenWrapper>
   );
 }
@@ -164,6 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingHorizontal: 30,
+    justifyContent: 'flex-start',
   },
   cardsWrapper: {
     flexDirection: 'column',
