@@ -1,28 +1,57 @@
 import ScreenWrapper from 'components/ScreenWrapper';
-import { View, Image, Text, StyleSheet, ScrollView } from 'react-native';
-import SearchBar from 'components/SearchBar';
+import { View, Image, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import TitleBar from 'components/TitleBar';
 import { icons } from 'images';
 import { theme } from 'utils/theme';
+import * as Linking from 'expo-linking';
 
 const items = [
-  { title: 'Help Center', icon: icons.help },
-  { title: 'Facebook', icon: icons.socials.facebook },
-  { title: 'Twitter', icon: icons.socials.twitter },
-  { title: 'Instagram', icon: icons.socials.twitter },
-  { title: 'GitHub', icon: icons.socials.github },
-  { title: 'Logout', icon: icons.logout },
+  {
+    title: 'Help Center',
+    icon: icons.help,
+    link: 'https://github.com/abubakrmuhammad/plyat',
+  },
+  {
+    title: 'Facebook',
+    icon: icons.socials.facebook,
+    link: 'https://www.facebook.com/bakrrrrrrrrrrrrrrrrrrrrrrrrrrr/',
+  },
+  {
+    title: 'Twitter',
+    icon: icons.socials.twitter,
+    link: 'https://twitter.com/im_bakr_',
+  },
+  {
+    title: 'Instagram',
+    icon: icons.socials.instagram,
+    link: 'https://www.instagram.com/bakrrrrrrrrrrrrrrrrrrrrrrrrrrr/',
+  },
+  {
+    title: 'GitHub',
+    icon: icons.socials.github,
+    link: 'https://github.com/abubakrmuhammad',
+  },
 ];
 
-function DrawerItem({ title, icon }: { title: string; icon: any }) {
+function DrawerItem({
+  title,
+  icon,
+  link,
+}: {
+  title: string;
+  icon: any;
+  link: string;
+}) {
   return (
-    <View style={styles.settingsItem}>
-      <View style={styles.settingsItemIcon}>
-        <Image source={icon} style={{ width: '100%', height: '100%' }} />
-      </View>
+    <Pressable onPress={() => Linking.openURL(link)}>
+      <View style={styles.settingsItem}>
+        <View style={styles.settingsItemIcon}>
+          <Image source={icon} style={{ width: '100%', height: '100%' }} />
+        </View>
 
-      <Text style={styles.settingsItemText}>{title}</Text>
-    </View>
+        <Text style={styles.settingsItemText}>{title}</Text>
+      </View>
+    </Pressable>
   );
 }
 
@@ -36,7 +65,12 @@ function DrawerScreen() {
 
         <ScrollView style={styles.cardsWrapper}>
           {items.map((item, index) => (
-            <DrawerItem key={index} title={item.title} icon={item.icon} />
+            <DrawerItem
+              key={index}
+              title={item.title}
+              icon={item.icon}
+              link={item.link}
+            />
           ))}
 
           <View style={{ height: 32 }} />
@@ -77,4 +111,3 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
   },
 });
-
